@@ -9,3 +9,10 @@ Configure your htm account and password as envrionment variable
 export MYACCOUNT={your_htm_account}
 export MYPASSWORD={your_htm_password}
 ```
+### Installing
+
+Install all required libraries by running pip install command
+
+```
+pip install -r requirements.txt
+```
