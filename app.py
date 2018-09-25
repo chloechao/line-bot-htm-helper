@@ -86,13 +86,9 @@ def handle_text_message(event):
             ]
         )
         os.system(
-            "pybot -d report -v USERNAME:CChao -v PASSWORD:{htm_password} \
+            f"pybot -d report -v USERNAME:CChao -v PASSWORD:{htm_password} \
             -v DATE:{today} -v TIME_NOW:{current_time} \
-            -t '{text} Today' case.robot".format(
-                htm_password=htm_password,
-                today=today,
-                text=text
-             ))
+            -t '{text} Today' case.robot")
 
     if text == 'PTO':
         htm_password = os.getenv('MYPASSWORD', None)
