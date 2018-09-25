@@ -53,6 +53,8 @@ if channel_access_token is None:
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 today = datetime.datetime.now().strftime("%m/%d/%Y")
+current_time = datetime.datetime.now().strftime("%I:%M %p")
+
 
 
 @handler.add(MessageEvent, message=TextMessage)
@@ -65,17 +67,16 @@ def handle_text_message(event):
                        Do you want to add a record?'.format(
                 username=profile.display_name, today=today)
             confirm_template = ConfirmTemplate(text=message, actions=[
-                MessageTemplateAction(label='Yes', text='Yes!'),
-                MessageTemplateAction(label='PTO', text='PTO'),
+                MessageTemplateAction(label='Checkin', text='Checkin'),
+                MessageTemplateAction(label='Checkout', text='Checkout'),
             ])
             template_message = TemplateSendMessage(
                 alt_text='Confirm alt text', template=confirm_template)
             line_bot_api.reply_message(event.reply_token, template_message)
 
-    if text == 'Yes!':
+    if text == 'Checkin' or text == 'Checkout':
         htm_password = os.getenv('MYPASSWORD', None)
         sticker_list = ['109', '138', '117', '407', '426']
-        print(random.choice(sticker_list))
         line_bot_api.reply_message(
             event.reply_token, [
                 StickerSendMessage(
@@ -86,9 +87,12 @@ def handle_text_message(event):
         )
         os.system(
             "pybot -d report -v USERNAME:CChao -v PASSWORD:{htm_password} \
-             -v DATE:{today} -t 'Add Today' case.robot".format(
+            -v DATE:{today} -v TIME_NOW:{current_time} \
+            -t '{text} Today' case.robot".format(
                 htm_password=htm_password,
-                today=today))
+                today=today,
+                text=text
+             ))
 
     if text == 'PTO':
         htm_password = os.getenv('MYPASSWORD', None)

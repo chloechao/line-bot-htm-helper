@@ -2,9 +2,14 @@
 Library    Selenium2Library
 
 *** Test Case ***
-Add Today
+Checkin Today
     Login
-    Add Row    ${DATE}
+    Add Row    ${DATE}    _start_=${TIME_NOW}
+    Click Element    css=#dgWt_ctl02_btnUpdate
+
+Checkout Today
+    Login
+    Checkout Row    _end=${TIME_NOW}
 
 Add PTO Today
     Login
@@ -32,6 +37,14 @@ Add Row
     Wait Until Keyword Succeeds   5x    1s    Input Text    css=#dgWt_ctl02_txtStartTime    ${_start}
     Wait Until Keyword Succeeds   5x    1s    Input Text    css=#dgWt_ctl02_txtEndTime    ${_end}
     Wait Until Keyword Succeeds   5x    1s    Input Text    css=#dgWt_ctl02_txtLunchDuration   ${_lunch}
+
+Checkout Row
+    [Arguments]    ${_end}=6:45 PM
+    Select Frame    list
+    Log To Console    ${_date}
+    Wait Until Keyword Succeeds    5x    2s    Click Element    css=#dgWt_ctl02_btnEdit
+    Wait Until Keyword Succeeds   5x    1s    Input Text    css=#dgWt_ctl02_txtEndTime    ${_end}
+    Click Element    css=#dgWt_ctl02_btnUpdate
 
 Add PTO
     [Arguments]    ${_date}=1/18/2018
