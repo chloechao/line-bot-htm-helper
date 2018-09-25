@@ -54,6 +54,7 @@ line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
 today = datetime.datetime.now().strftime("%m/%d/%Y")
 current_time = datetime.datetime.now().strftime("%I:%M %p")
+current_time = current_time.replace(" ", "${SPACE}")
 
 
 
