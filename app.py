@@ -15,6 +15,7 @@
 import os
 import sys
 import datetime
+import pytz
 import random
 from argparse import ArgumentParser
 
@@ -52,8 +53,9 @@ if channel_access_token is None:
 
 line_bot_api = LineBotApi(channel_access_token)
 handler = WebhookHandler(channel_secret)
-today = datetime.datetime.now().strftime("%m/%d/%Y")
-current_time = datetime.datetime.now().strftime("%I:%M %p")
+tz = pytz.timezone('Asia/Tokyo')
+today = datetime.datetime.now(tz).strftime("%m/%d/%Y")
+current_time = datetime.datetime.now(tz).strftime("%I:%M %p")
 current_time = current_time.replace(" ", "${SPACE}")
 
 
