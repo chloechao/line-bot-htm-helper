@@ -4,12 +4,12 @@ Library    Selenium2Library
 *** Test Case ***
 Checkin Today
     Login
-    Add Row    ${DATE}    _start_=${TIME_NOW}
+    Add Row    ${DATE}    ${TIME_NOW}
     Click Element    css=#dgWt_ctl02_btnUpdate
 
 Checkout Today
     Login
-    Checkout Row    _end=${TIME_NOW}
+    Checkout Row    ${TIME_NOW}
 
 Add PTO Today
     Login
